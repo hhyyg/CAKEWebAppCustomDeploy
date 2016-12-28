@@ -62,6 +62,7 @@ Task("Apply-Config-Transformations")
 Task("Build")
     .IsDependentOn("Clean")
     .IsDependentOn("Restore")
+    .IsDependentOn("Apply-Config-Transformations")
     .Does(() =>
 {
     // Build all solutions.
