@@ -1,6 +1,6 @@
 #tool "KuduSync.NET" "https://www.nuget.org/api/v2/"
 #addin "Cake.Kudu" "https://www.nuget.org/api/v2/"
-#addin "Cake.XdtTransform"
+#addin Cake.EnvXmlTransform
 
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -52,13 +52,11 @@ Task("Restore")
     NuGetRestore(solutionPath);
 });
 
-Task("TransformConfig")
-  .Does(() =>
-{
-  var sourceFile      = File("web.config");
-  var transformFile   = File("web.vsbuildrelease.config");
-  var targetFile      = File("web.target.config");
-  XdtTransformConfig(sourceFile, transformFile, targetFile);
+Task("Apply-Config-Transformations")
+  .Does(() => {
+    var configFileFolder = "./MisoDep/Web.config";
+    var environment = "vsbuildrelease";
+    ConfigTransform.ApplyTransformations(configFileFolder, environment);
 });
 
 Task("Build")
