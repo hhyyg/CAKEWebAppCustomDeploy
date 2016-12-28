@@ -54,6 +54,8 @@ Task("Restore")
 
 Task("Apply-Config-Transformations")
   .Does(() => {
+
+    Information("Apply-Config-Transformations");
     var configFileFolder = "./MisoDep/Web.config";
     var environment = "vsbuildrelease";
     ConfigTransform.ApplyTransformations(configFileFolder, environment);
