@@ -6,7 +6,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 var target          = Argument<string>("target", "Default");
-var configuration   = Argument<string>("configuration", "Release");
+var configuration   = Argument<string>("configuration", "vsbuildrelease");
 
 ///////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
