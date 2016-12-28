@@ -1,5 +1,6 @@
 #tool "KuduSync.NET" "https://www.nuget.org/api/v2/"
 #addin "Cake.Kudu" "https://www.nuget.org/api/v2/"
+#addin "Cake.XdtTransform"
 
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -49,6 +50,15 @@ Task("Restore")
     // Restore all NuGet packages.
     Information("Restoring {0}...", solutionPath);
     NuGetRestore(solutionPath);
+});
+
+Task("TransformConfig")
+  .Does(() =>
+{
+  var sourceFile      = File("web.config");
+  var transformFile   = File("web.vsbuildrelease.config");
+  var targetFile      = File("web.target.config");
+  XdtTransformConfig(sourceFile, transformFile, targetFile);
 });
 
 Task("Build")
